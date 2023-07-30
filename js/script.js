@@ -17,9 +17,12 @@ const playAgain = document.querySelector(".play-again");
 const word = "magnolia";
 
 const blurWord = function(){
+    const placeholderLetters = [];
     for(let letter of word){
-        wordInProgress.innerText += "●";
+        console.log(letter);
+        placeholderLetters.push("●");
     }
+    wordInProgress.innerText = placeholderLetters.join("");
 };
 blurWord();
 
