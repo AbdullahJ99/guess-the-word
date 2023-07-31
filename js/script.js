@@ -18,7 +18,7 @@ const word = "magnolia";
 const guessedLetters = [];
 
 //Blurring the word
-const blurWord = function(){
+const blurWord = function(word){
     const placeholderLetters = [];
     for(let letter of word){
         console.log(letter);
@@ -26,7 +26,7 @@ const blurWord = function(){
     }
     wordInProgress.innerText = placeholderLetters.join("");
 };
-blurWord();
+blurWord(word);
 
 //Pressing the Guess! button
 guessButton.addEventListener("click", function(e){
@@ -36,7 +36,6 @@ guessButton.addEventListener("click", function(e){
     const validLetter = validate(letter);
     if (validLetter !== undefined){
         makeGuess(validLetter);
-        console.log(validLetter);
     }
     letterInput.value = "";
 });
@@ -44,11 +43,11 @@ guessButton.addEventListener("click", function(e){
 //Input validation
 const validate = function(input){
     const acceptedLetter = /[a-zA-Z]/;
-    if (letterInput.value === ""){
+    if (input.length === ""){
         guessMessage.innerText = "Type your guess in the text box!";
-    } else if (letterInput.value.length > 1){
+    } else if (input.length > 1){
         guessMessage.innerText = "Your guess cannot be more than one letter.";
-    } else if (!letterInput.value.match(acceptedLetter)){
+    } else if (!input.match(acceptedLetter)){
         guessMessage.innerText = "Your guess must be a letter from A-Z.";
     } else {
         return input;
