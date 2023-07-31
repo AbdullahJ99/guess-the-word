@@ -61,6 +61,41 @@ const makeGuess = function(letter){
         guessMessage.innerText = "You already guessed that letter!";
     } else {
         guessedLetters.push(letter);
-        console.log(guessedLetters);
+        updateLetters();
+        updateWord(guessedLetters);
+    }
+}
+
+//Update guessed letters list
+const updateLetters = function(){
+    guessedList.innerHTML = "";
+    for (const letter of guessedLetters){
+        let li = document.createElement("li");
+        li.innerText = letter;
+        guessedList.append(li);
+    }
+}
+
+//Update the blurred word in progress
+const updateWord = function(guessedLetters){
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    const blurredWord = [];
+    for (const letter of wordArray){
+        if(guessedLetters.includes(letter)){
+            blurredWord.push(letter.toUpperCase());
+        } else {
+            blurredWord.push("●");
+        }
+    } 
+    wordInProgress.innerText = blurredWord.join("");
+    success();
+}
+
+//Check win condition
+const success = function(){
+    if (word.toUpperCase() === wordInProgress.innerText){
+        guessMessage.classList.add("win");
+        guessMessage.innerHTML = '<p class="highlight">You guessed correct the word! Congrats!</p>';
     }
 }
