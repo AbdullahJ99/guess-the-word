@@ -17,7 +17,7 @@ const playAgain = document.querySelector(".play-again");
 
 //Global Variables
 let word = "";
-const guessedLetters = [];
+let guessedLetters = [];
 let remainingGuesses = 8;
 const getWord = async function(){
     const res = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
@@ -116,6 +116,7 @@ const guessesLeft = function(guess){
     }
     if (remainingGuesses === 0){
         guessMessage.innerText = `GAME OVER. The word was ${word}.`;
+        startOver();
     } else if (remainingGuesses === 1){
         guessesRemainingSpan.innerText = "1 guess";
     } else {
@@ -128,5 +129,27 @@ const success = function(){
     if (word.toUpperCase() === wordInProgress.innerText){
         guessMessage.classList.add("win");
         guessMessage.innerHTML = '<p class="highlight">You guessed the word correctly! Congrats!</p>';
+        startOver();
     }
 }
+
+const startOver = function(){
+    guessButton.classList.add("hide");
+    guessesRemaining.classList.add("hide");
+    guessedList.classList.add("hide");
+    playAgain.classList.remove("hide");
+}
+
+playAgain.addEventListener("click", function(){
+    guessMessage.classList.remove("win");
+    guessMessage.innerText = "";
+    guessedList.innerText = "";
+    guessedLetters = [];
+    remainingGuesses = 8;
+    guessesRemainingSpan.innerText = "8 guesses";
+    guessButton.classList.remove("hide");
+    guessesRemaining.classList.remove("hide");
+    guessedList.classList.remove("hide");
+    playAgain.classList.add("hide");
+    getWord();
+});
