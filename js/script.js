@@ -54,7 +54,7 @@ guessButton.addEventListener("click", function(e){
 //Input validation
 const validate = function(input){
     const acceptedLetter = /[a-zA-Z]/;
-    if (input.length === ""){
+    if (input.length == ""){
         guessMessage.innerText = "Type your guess in the text box!";
     } else if (input.length > 1){
         guessMessage.innerText = "Your guess cannot be more than one letter.";
